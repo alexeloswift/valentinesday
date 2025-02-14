@@ -13,6 +13,8 @@ import {
 import { lazy, Suspense } from 'react';
 import Home from './routes/home';
 import './app.css';
+import { Analytics } from '@vercel/analytics/next';
+
 
 
 
@@ -75,6 +77,7 @@ export default function App() {
           />
         </Routes>
       </HashRouter>
+          <Analytics />
     </>
   );
 }
