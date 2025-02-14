@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import FloatingHearts from "./floatinghearts";
 import { Resend } from 'resend';
 
-const resend = new Resend('re_SPJmPSaz_D41MCiNDBxPqnggw7ut1dCPv');
+const resend = new Resend('re_bFVKHQVP_Gsgvt1n1unXpfsScJF6Kmt6a');
 
 resend.emails.send({
   from: 'onboarding@resend.dev',
@@ -25,7 +25,7 @@ export default function Yes() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 're_SPJmPSaz_D41MCiNDBxPqnggw7ut1dCPv', // Replace with your actual API key
+            'Authorization': 're_bFVKHQVP_Gsgvt1n1unXpfsScJF6Kmt6a', // Replace with your actual API key
           },
           body: JSON.stringify({
             from: 'onboarding@resend.dev',

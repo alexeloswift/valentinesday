@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { Resend } from 'resend';
 
-const resend = new Resend('re_SPJmPSaz_D41MCiNDBxPqnggw7ut1dCPv');
+const resend = new Resend('re_bFVKHQVP_Gsgvt1n1unXpfsScJF6Kmt6a');
     
 resend.emails.send({
   from: 'onboarding@resend.dev',
