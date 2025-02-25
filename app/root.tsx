@@ -1,3 +1,4 @@
+// src/root.tsx
 import {
   isRouteErrorResponse,
   Links,
@@ -5,22 +6,32 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "react-router";
+  HashRouter,
+  Routes,
+  Route,
+} from 'react-router';
+import { lazy, Suspense } from 'react';
+import Home from './routes/home';
+import './app.css';
+import { Analytics } from '@vercel/analytics/next';
 
-import type { Route } from "./+types/root";
-import "./app.css";
 
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+
+// Lazy load the components that depend on the browser environment
+const Yes = lazy(() => import('./routes/yes'));
+const No = lazy(() => import('./routes/no'));
+
+export const links = () => [
+  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
+    rel: 'preconnect',
+    href: 'https://fonts.gstatic.com',
+    crossOrigin: 'anonymous',
   },
   {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    rel: 'stylesheet',
+    href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
   },
 ];
 
@@ -44,22 +55,43 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-amber-50 text-gray-900">
-      <Outlet />
-    </div>
+    <>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/yes"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Yes />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/no"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <No />
+              </Suspense>
+            }
+          />
+        </Routes>
+      </HashRouter>
+          <Analytics />
+    </>
   );
 }
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+export function ErrorBoundary({ error }: { error: Error }) {
+  let message = 'Oops!';
+  let details = 'An unexpected error occurred.';
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
+    message = error.status === 404 ? '404' : 'Error';
     details =
       error.status === 404
-        ? "The requested page could not be found."
+        ? 'The requested page could not be found.'
         : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;

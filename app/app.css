@@ -34,4 +34,24 @@ body {
   clip-path: path("M10 30 A 10 10 0 1 1 30 10 A 10 10 0 1 1 50 30 Q 30 60 10 30 Z");
   animation: floatUp 4s linear forwards;
 }
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.floating-gif {
+  animation: float 3s ease-in-out infinite;
+  position: absolute;
+  width: 200px; /* Adjust size if needed */
+  height: 200px;
+  opacity: 0.8;
+}
+
 

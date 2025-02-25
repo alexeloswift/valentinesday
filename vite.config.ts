@@ -1,14 +1,15 @@
-import { reactRouter } from "@react-router/dev/vite";
-import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
+import react from "@vitejs/plugin-react";
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+
 
 export default defineConfig({
-  plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
-  base: "/alexeloswift.github.io/",
-  build: {
-    ssr: true,
-    outDir: "dist", // Ensure Vite outputs to 'dist' instead of 'build/client'
-    emptyOutDir: true, // Clean 'dist' before building
+  plugins: [tailwindcss(), react()],
+  base: '/',
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "root"), // Change "src" to "app" if your files are inside "app"
+    },
   },
 });
